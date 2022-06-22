@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Contract from './components/contract/contract';
+import Contracts from './components/contracts';
+import Header from './components/header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+
+      <div className="flex">
+        <div className="flex-initial w-64 p-4">
+          <Contracts />
+        </div>
+
+        <div className="flex justify-center flex-1 p-4">
+          <Contract />
+        </div>
+      </div>
     </div>
   );
 }
