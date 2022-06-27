@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 
-import clsx from 'clsx';
-import { ethers } from 'ethers';
+import { ethers, Event } from 'ethers';
 
 import { useProvider } from '../../connectors';
 import { ImportedContract } from '../../store';
+import { formatDate } from '../../utils/formatDate';
 import { ABIEvent } from '../../utils/parseABI';
 import Button from '../button';
+import { Collapsable } from '../collapsable';
 import { ContractValue } from './value';
+
+interface ExtendedEvent extends Event {
+  timestamp: number;
+}
 
 export default function ContractEvent({
   contract,
@@ -19,9 +24,7 @@ export default function ContractEvent({
 }) {
   const provider = useProvider();
 
-  const [expanded, setExpanded] = useState<boolean>(false);
-
-  const [outputs, setOutputs] = useState<any[]>([]);
+  const [outputs, setOutputs] = useState<ExtendedEvent[]>([]);
 
   async function fetch() {
     if (!contract || !provider) return;
@@ -33,6 +36,28 @@ export default function ContractEvent({
     );
 
     try {
+      const blocksToAverage = 10000;
+      const block = await provider.getBlock('latest');
+      const blockAgo = await provider.getBlock(block.number - blocksToAverage);
+      const averageBlockTime = (block.timestamp - blockAgo.timestamp) / blocksToAverage;
+      const timeSpan = 3600 * 4;
+      const numBlocks = 1500; //Math.floor(timeSpan / averageBlockTime);
+
+      const filter = contractInstance.filters[event.name]();
+      const events = await contractInstance.queryFilter(
+        filter,
+        block.number - numBlocks,
+        block.number,
+      );
+
+      const extendedEvents: ExtendedEvent[] = events.map(event => {
+        const timestamp = block.timestamp - (block.number - event.blockNumber) * averageBlockTime;
+        return { ...event, timestamp };
+      });
+
+      console.log('Events', extendedEvents);
+
+      setOutputs(extendedEvents);
     } catch (e) {
       console.error(e);
       setOutputs([(e as any).toString()]);
@@ -40,35 +65,57 @@ export default function ContractEvent({
   }
 
   return (
-    <div className="mb-1">
-      <div
-        className="flex items-center px-4 py-3 text-sm border border-gray-200 cursor-pointer bg-gray-50"
-        key={event.name}
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div className="flex-initial w-64">{event.name}</div>
-        <div className="flex-1"></div>
-        <div>{expanded ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}</div>
-      </div>
-      <div
-        className={clsx(
-          'transition-all bg-white border-x border-gray-200 overflow-hidden',
-          expanded ? 'border-b p-4' : 'h-0',
-        )}
-      >
+    <Collapsable
+      className="mb-1"
+      header={
+        <div className="flex items-center px-4 py-3 text-sm border border-gray-200 cursor-pointer bg-gray-50">
+          <div className="flex-initial w-64">{event.name}</div>
+          <div className="flex-1"></div>
+          <div>
+            <MdExpandLess size={20} className="hidden collapsable-expanded:block" />
+            <MdExpandMore size={20} className="collapsable-expanded:hidden" />
+          </div>
+        </div>
+      }
+      key={event.name}
+    >
+      <div className="p-4 bg-white border-b border-gray-200 border-x">
         <Button type="secondary" className="mt-2" onClick={fetch}>
-          Get
+          Fetch
         </Button>
 
         <div className="mt-2">
-          {outputs.map((output, outputIndex) => (
-            <div key={outputIndex}>
-              {event.inputs[outputIndex].name || 'output' + outputIndex}:
-              <ContractValue value={output} />
-            </div>
-          ))}
+          <table className="text-sm">
+            <thead>
+              <tr>
+                <th className="pr-4">Date</th>
+
+                {event.inputs.map(input => (
+                  <th key={input.name} className="pr-4">
+                    {input.name}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+
+            <tbody>
+              {outputs.map((output, outputIndex) => (
+                <tr key={outputIndex}>
+                  <td className="pr-4 text-center">
+                    {formatDate(new Date(output.timestamp * 1000))}
+                  </td>
+
+                  {output.args?.map((arg, argIndex) => (
+                    <td key={argIndex} className="pr-4 text-center">
+                      <ContractValue value={arg} shorten={true} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
+    </Collapsable>
   );
 }

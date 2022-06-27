@@ -1,8 +1,10 @@
 import React from 'react';
+import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 
 import { useChainId } from '../connectors';
 import { useStore } from '../store';
 import Button from './button';
+import { Collapsable } from './collapsable';
 import FormRow from './form-row';
 
 function ImportContract() {
@@ -20,10 +22,19 @@ function ImportContract() {
   }
 
   return (
-    <div>
-      <div className="mb-4 text-lg">Import contract</div>
-
-      <FormRow label="Name">
+    <Collapsable
+      header={
+        <div className="flex items-center px-4 py-2 text-sm border border-gray-200 cursor-pointer bg-gray-50">
+          <div>Import contract</div>
+          <div className="flex-1"></div>
+          <div>
+            <MdExpandLess size={20} className="hidden collapsable-expanded:block" />
+            <MdExpandMore size={20} className="collapsable-expanded:hidden" />
+          </div>
+        </div>
+      }
+    >
+      <FormRow label="Name" className="mt-4">
         <input type="text" value={name} onChange={e => setName(e.target.value)} />
       </FormRow>
 
@@ -38,7 +49,7 @@ function ImportContract() {
       <Button onClick={importContract} className="w-full">
         Import
       </Button>
-    </div>
+    </Collapsable>
   );
 }
 

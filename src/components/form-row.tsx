@@ -1,8 +1,18 @@
 import React from 'react';
 
-function FormRow({ label, children }: { label: string; children: React.ReactNode }) {
+import clsx from 'clsx';
+
+function FormRow({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className="mb-2">
+    <div className={clsx('mb-2', className)}>
       <div className="text-sm text-gray-600">{label}</div>
       <div>{children}</div>
     </div>

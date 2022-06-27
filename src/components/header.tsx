@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { metaMask, useAccounts, useChainId, useIsActivating, useIsActive } from '../connectors';
-import { chainNames } from '../constants/chainNames';
+import { getChain } from '../constants/chains';
 import { formatAddress } from '../utils/formatAddress';
 
 function Header() {
@@ -25,7 +25,7 @@ function Header() {
       {isActive && accounts && chainId ? (
         <div className="flex">
           <div className="px-4 py-2 mr-4 font-semibold text-black bg-white rounded-2xl">
-            {chainNames[chainId].name}
+            {getChain(chainId)?.name || 'Unknown'}
           </div>
 
           <div className="px-4 py-2 font-semibold text-black bg-white rounded-2xl">

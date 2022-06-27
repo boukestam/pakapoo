@@ -4,6 +4,7 @@ import { FaFileContract } from 'react-icons/fa';
 import clsx from 'clsx';
 
 import { useStore } from '../../store';
+import ContractEvents from './events';
 import ContractProperties from './properties';
 import ContractRead from './read';
 import ContractWrite from './write';
@@ -42,6 +43,7 @@ function Contract() {
             {tab === ContractTab.Properties && <ContractProperties contract={selectedContract} />}
             {tab === ContractTab.Read && <ContractRead contract={selectedContract} />}
             {tab === ContractTab.Write && <ContractWrite contract={selectedContract} />}
+            {tab === ContractTab.Events && <ContractEvents contract={selectedContract} />}
           </div>
         </div>
       ) : (
