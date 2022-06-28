@@ -22,16 +22,16 @@ function Contract() {
   const [tab, setTab] = useState<ContractTab>(ContractTab.Properties);
 
   return (
-    <div className="flex-1 max-w-4xl">
+    <div className="flex-1 max-w-4xl bg-white">
       {selectedContract ? (
-        <div>
-          <div className="flex justify-center mb-4">
+        <>
+          <div className="flex justify-center">
             {Object.keys(ContractTab).map(option => (
               <div
                 key={option}
                 className={clsx(
-                  'p-1 m-2 cursor-pointer',
-                  option === tab && 'border-b-2 border-blue-500 text-blue-500',
+                  'p-1 m-2 cursor-pointer font-bold text-gray-600 hover:text-blue-500 transition-all border-b-2',
+                  option === tab ? 'border-blue-500 text-blue-500' : 'border-transparent',
                 )}
                 onClick={() => setTab(option as ContractTab)}
               >
@@ -39,15 +39,16 @@ function Contract() {
               </div>
             ))}
           </div>
-          <div>
+
+          <div className="p-6">
             {tab === ContractTab.Properties && <ContractProperties contract={selectedContract} />}
             {tab === ContractTab.Read && <ContractRead contract={selectedContract} />}
             {tab === ContractTab.Write && <ContractWrite contract={selectedContract} />}
             {tab === ContractTab.Events && <ContractEvents contract={selectedContract} />}
           </div>
-        </div>
+        </>
       ) : (
-        <div className="flex flex-col items-center justify-center h-96">
+        <div className="flex flex-col items-center justify-center p-6 h-96">
           <FaFileContract size={48} className="mb-4" />
           <div>No contract selected</div>
         </div>

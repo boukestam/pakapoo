@@ -24,7 +24,7 @@ function ImportContract() {
   return (
     <Collapsable
       header={
-        <div className="flex items-center px-4 py-2 text-sm border border-gray-200 cursor-pointer bg-gray-50">
+        <div className="flex items-center px-4 py-2 text-sm border border-gray-200 rounded cursor-pointer bg-gray-50">
           <div>Import contract</div>
           <div className="flex-1"></div>
           <div>

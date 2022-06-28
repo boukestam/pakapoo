@@ -19,7 +19,7 @@ async function fetchProperty(f: ContractFunction) {
 
 function ContractProperty({ name, values }: { name: string; values: any }) {
   return (
-    <div className="flex px-4 py-3 mb-0.5 bg-white text-sm">
+    <div className="flex px-4 py-3 text-sm bg-white border-b border-gray-200 even:bg-gray-50 odd:bg-gray-100">
       <div className="flex-initial w-64">{name}</div>
       <div>
         {Array.isArray(values) &&
@@ -54,13 +54,16 @@ function ContractProperties({ contract }: { contract: ImportedContract }) {
   }, [contract, provider]);
 
   return (
-    <div>
-      <div className="mb-4">
-        <ContractProperty name="Address" values={[contract.address]} />
-        <ContractProperty name="Balance" values={[balance]} />
+    <div className="overflow-hidden rounded shadow-md">
+      <div className="flex px-4 py-2 font-bold text-white bg-blue-500">
+        <div className="flex-initial w-64">Name</div>
+        <div className="flex-1">Value</div>
       </div>
 
       <div>
+        <ContractProperty name="Address" values={[contract.address]} />
+        <ContractProperty name="Balance" values={[balance]} />
+
         {getProperties(contract.abi).map((view, viewIndex) => (
           <ContractProperty key={view.name} name={view.name} values={outputs[viewIndex]} />
         ))}

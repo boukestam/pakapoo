@@ -16,29 +16,23 @@ function Header() {
     });
   }, []);
 
-  return (
-    <div className="flex items-center justify-end p-4 text-white bg-blue-500">
-      <div className="text-xl font-bold">EVM Tools</div>
+  const buttonStyle =
+    'px-4 py-1 text-sm ml-4 font-semibold text-black border border-gray-200 rounded-2xl';
 
+  return (
+    <div className="flex items-center justify-end p-4 text-white bg-white border-b border-gray-200">
       <div className="flex-1"></div>
 
       {isActive && accounts && chainId ? (
         <div className="flex">
-          <div className="px-4 py-2 mr-4 font-semibold text-black bg-white rounded-2xl">
-            {getChain(chainId)?.name || 'Unknown'}
-          </div>
+          <div className={buttonStyle}>{getChain(chainId)?.name || 'Unknown'}</div>
 
-          <div className="px-4 py-2 font-semibold text-black bg-white rounded-2xl">
-            {formatAddress(accounts[0])}
-          </div>
+          <div className={buttonStyle}>{formatAddress(accounts[0])}</div>
         </div>
       ) : isActivating ? (
         'Connecting...'
       ) : (
-        <button
-          onClick={() => metaMask.activate()}
-          className="px-4 py-2 font-semibold text-black bg-white rounded-2xl"
-        >
+        <button onClick={() => metaMask.activate()} className={buttonStyle}>
           Connect
         </button>
       )}

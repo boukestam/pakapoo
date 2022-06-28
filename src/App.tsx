@@ -9,13 +9,20 @@ function App() {
   const { notifications, removeNotification } = useStore();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      <Header />
+    <div className="flex min-h-screen bg-white">
+      <div className="flex flex-col flex-initial w-64 bg-gray-100 border-r border-gray-200">
+        <div className="flex items-center px-4 py-2 mb-8 text-xl font-bold text-black">
+          <img src="/android-chrome-192x192.png" alt="logo" className="h-12 mr-2" />
+          EVM Tools
+        </div>
 
-      <div className="flex">
-        <div className="flex-initial w-64 p-4">
+        <div className="p-4">
           <Contracts />
         </div>
+      </div>
+
+      <div className="flex flex-col flex-1">
+        <Header />
 
         <div className="flex justify-center flex-1 p-4">
           <Contract />

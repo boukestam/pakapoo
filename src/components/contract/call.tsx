@@ -89,9 +89,9 @@ export default function ContractCall({
 
   return (
     <Collapsable
-      className="mb-1"
+      className="mb-2"
       header={
-        <div className="flex items-center px-4 py-3 text-sm border border-gray-200 cursor-pointer bg-gray-50">
+        <div className="flex items-center px-4 py-3 text-sm border border-gray-200 rounded cursor-pointer bg-gray-50 collapsable-expanded:rounded-b-none">
           <div className="flex-initial w-64">{call.name}</div>
           <div className="flex-1"></div>
           <div>
@@ -102,7 +102,7 @@ export default function ContractCall({
       }
       key={call.name}
     >
-      <div className="p-4 bg-white border-b border-gray-200 border-x">
+      <div className="p-4 bg-white border-b border-gray-200 rounded-b border-x">
         {call.inputs.map((input, inputIndex) => (
           <FormRow label={`${input.name || 'input' + inputIndex} (${input.type})`} key={inputIndex}>
             <input

@@ -20,7 +20,7 @@ function Contracts() {
           .filter(contract => contract.chainId === chainId)
           .map(contract => (
             <div
-              className="px-4 py-2 mb-2 bg-white border border-gray-300 cursor-pointer hover:shadow-md hover:bg-gray-50"
+              className="px-4 py-2 mb-2 bg-white border border-gray-300 rounded shadow-sm cursor-pointer hover:shadow-md hover:bg-gray-50"
               onClick={() => setSelectedContract(contract)}
               key={contract.address}
             >
