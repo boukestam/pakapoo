@@ -16,7 +16,7 @@ function Button({ children, onClick, type = 'primary', className, disabled }: Bu
       className={clsx(
         'px-4 py-1 rounded text-sm',
         !disabled && 'hover:shadow-md',
-        type === 'primary' && 'text-white bg-blue-500 hover:bg-blue-600',
+        type === 'primary' && 'text-white bg-purple-500 hover:bg-purple-600',
         type === 'secondary' && 'text-black border border-gray-300',
         type === 'secondary' && !disabled && 'bg-white hover:bg-gray-100',
         type === 'secondary' && disabled && 'bg-gray-100',
