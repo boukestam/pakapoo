@@ -56,9 +56,9 @@ export function Generate() {
         <Button onClick={() => metaMask.activate()}>Connect with MetaMask</Button>
       )}
 
-      {isActive && chainId !== 4 && <div>Please switch your network to Rinkeby</div>}
+      {isActive && chainId !== 5 && <div>Please switch your network to Görli</div>}
 
-      {isActive && chainId === 4 && (
+      {isActive && chainId === 5 && (
         <>
           <div className="mb-2">How many tickets are there?</div>
           <input
