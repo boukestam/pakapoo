@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/pakapoo/static/css/main.de604f07.css",
-    "main.js": "/pakapoo/static/js/main.f898bf2e.js",
+    "main.css": "/pakapoo/static/css/main.e1bd5083.css",
+    "main.js": "/pakapoo/static/js/main.11bc4266.js",
     "static/js/787.a55255b4.chunk.js": "/pakapoo/static/js/787.a55255b4.chunk.js",
     "index.html": "/pakapoo/index.html",
-    "main.de604f07.css.map": "/pakapoo/static/css/main.de604f07.css.map",
-    "main.f898bf2e.js.map": "/pakapoo/static/js/main.f898bf2e.js.map",
+    "main.e1bd5083.css.map": "/pakapoo/static/css/main.e1bd5083.css.map",
+    "main.11bc4266.js.map": "/pakapoo/static/js/main.11bc4266.js.map",
     "787.a55255b4.chunk.js.map": "/pakapoo/static/js/787.a55255b4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.de604f07.css",
-    "static/js/main.f898bf2e.js"
+    "static/css/main.e1bd5083.css",
+    "static/js/main.11bc4266.js"
   ]
 }
