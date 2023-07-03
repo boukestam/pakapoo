@@ -29,7 +29,7 @@ export function Generate() {
     }
 
     const contract = new ethers.Contract(
-      '0x3B99D9d97ef9c447DA7339C298048b1F043577F2',
+      '0x2D1416Bf5d59D66850F2110FE03E240f667a81Da',
       abi,
       provider.getSigner(0),
     );
