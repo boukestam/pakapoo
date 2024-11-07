@@ -29,7 +29,7 @@ export function Generate() {
     }
 
     const contract = new ethers.Contract(
-      '0x3B99D9d97ef9c447DA7339C298048b1F043577F2',
+      process.env.REACT_APP_CONTRACT_ADDRESS as string,
       abi,
       provider.getSigner(0),
     );
@@ -37,7 +37,7 @@ export function Generate() {
     setLoading(true);
 
     try {
-      const tx = await contract.requestRandomWords(ticketCount);
+      const tx = await contract.requestRandomWords(false, ticketCount);
       const receipt = await tx.wait();
       console.log(receipt);
       alert('Number requested successfully');
@@ -56,9 +56,9 @@ export function Generate() {
         <Button onClick={() => metaMask.activate()}>Connect with MetaMask</Button>
       )}
 
-      {isActive && chainId !== 5 && <div>Please switch your network to Görli</div>}
+      {isActive && chainId !== 11155111 && <div>Please switch your network to Sepolia</div>}
 
-      {isActive && chainId === 5 && (
+      {isActive && chainId === 11155111 && (
         <>
           <div className="mb-2">How many tickets are there?</div>
           <input
